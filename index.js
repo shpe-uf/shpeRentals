@@ -17,7 +17,7 @@ const typeDefs = gql`
     getInventory: [Rentable]
   }
   type Mutation{
-    checkOut: String
+    checkOut(item: String, name: String): [String]
     return: String
   }
 `;
@@ -39,8 +39,8 @@ const resolvers = {
       name
     ) {
       try{
-        await Rentable.update({'item':item}, {$push: {renters: name}});
-        return 'Success';
+        const rentable = await Rentable.update({'item':item}, {$push: {renters: name}});
+        return rentable.renters;
       } catch(err) {
         throw new Error(err);
       }
