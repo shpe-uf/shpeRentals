@@ -16,6 +16,10 @@ const typeDefs = gql`
   type Query{
     getInventory: [Rentable]
   }
+  type Mutation{
+    checkOut: String
+    return: String
+  }
 `;
 
 const resolvers = {
@@ -28,6 +32,29 @@ const resolvers = {
         throw new Error(err);
       }
     }
+  },
+  Mutation: {
+    async checkOut(
+      item,
+      name
+    ) {
+      try{
+        await Rentable.update({'item':item}, {$push: {renters: name}});
+        return 'Success';
+      } catch(err) {
+        throw new Error(err);
+      }
+    },
+    // async return(
+    //   item
+    // ) {
+    //   try{
+    //     const inventory = await Rentable.find();
+    //     return inventory;
+    //   } catch(err) {
+    //     throw new Error(err);
+    //   }
+    // }
   }
 };
 
