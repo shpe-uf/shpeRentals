@@ -3,6 +3,7 @@ import { Header, Card, Dimmer, Loader, Image } from 'semantic-ui-react';
 import { useQuery } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
 import { Link } from 'react-router-dom';
+import {img} from '../assets/placeholder.json'
 
 function Listings(props) {
 
@@ -27,7 +28,7 @@ function Listings(props) {
                   to={"/rentalpage/"+ i}
                   key={i}
                 >
-                  <Image src='../assets/notfound_placeholder.svg'/>
+                  <img src={img}/>
                   <Card.Content>
                     <Card.Header>{item.item}</Card.Header>
                     <Card.Description>
