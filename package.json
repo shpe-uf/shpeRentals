@@ -10,9 +10,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "apollo-server": "^2.9.16",
+    "apollo-server": "^2.10.1",
     "create-react-app": "^3.3.1",
     "graphql": "^14.6.0",
-    "mongoose": "^5.8.10"
+    "mongoose": "^5.9.2"
   }
 }

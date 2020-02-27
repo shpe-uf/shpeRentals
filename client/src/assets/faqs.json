@@ -1,28 +1,32 @@
 {
   "faqs": [
     {
-      "question": "Who am I",
-      "answer": "ME"
+      "question": "How long can I rent my item for?",
+      "answer": "You are allowed to rent an item for up to 2 weeks. "
     },
     {
-      "question": "All inventory",
-      "answer": ""
+      "question": "What happens if I don’t turn in an item?",
+      "answer": "You will lose one point per day after your deadline for submission"
     },
     {
-      "question": "All inventory",
-      "answer": ""
+      "question": "Can I rent an item?",
+      "answer": "The following requirements are necessary to be met before gaining access to SHPE Rentals:\\r\\nSHPE National Membership\\r\\nMust be registered with SHPE UF\\r\\nMust have at least ### points, the greater the points the more items you can rent see (What are tiers for more information)"
     },
     {
-      "question": "All inventory",
-      "answer": ""
+      "question": "What are tiers?",
+      "answer": "The following tiers will give you greater access to more items based on points you have collected by being an active member throughout the semester:\r\nTier 1\r\nTier 2\r\nTier 3"
     },
     {
-      "question": "All inventory",
-      "answer": ""
+      "question": "How do I pick up my item?",
+      "answer": "You will receive an email confirmation after you have submitted your rental order. One of the Rental Directors will contact you to set up an appointment for pick at the SHPE UF office in Weil Hall. Please remember to bring you Gator 1 ID for identification for pick up purposes."
     },
     {
-      "question": "All inventory",
-      "answer": ""
+      "question": "How many items can I rent at a time?",
+      "answer": "Each item will have a maximum quantity available to rent in their description."
+    },
+    {
+      "question": "I broke or lost an item what do I do?",
+      "answer": "Contact one of the Rental Directors through our business email to sort the situation."
     }
   ]
 }
