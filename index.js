@@ -47,6 +47,7 @@ const typeDefs = gql`
   }
   type Query{
     getInventory: [Rentable]
+    getItem(item: String): Rentable
   }
   type Mutation{
     checkOut(data: TransactionData): [Receipt],
@@ -65,10 +66,23 @@ const resolvers = {
       } catch(err) {
         throw new Error(err);
       }
+    },
+
+    async getItem(_,{item}) {
+      try{
+        const rentable = await Rentable.findOne({'item': item})
+        return rentable;
+      } catch(err) {
+        throw new Error(err);
+      }
     }
   },
 
   Mutation: {
+
+    //=====================================================================
+    //========================= Checking out an item ======================
+    //=====================================================================
 
     async checkOut(_, data) {
       try{
@@ -123,6 +137,11 @@ const resolvers = {
         throw new Error(err);
       }
     },
+    
+    //=====================================================================
+    //========================= Returning an item =========================
+    //=====================================================================
+
     async return(_, data) {
       try{
 
@@ -177,11 +196,12 @@ const resolvers = {
 };
 
 const server = new ApolloServer({
+  cors: true,
   typeDefs,
   resolvers
 });
 
-mongoose.connect(mongodb, { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(mongodb, { useNewUrlParser: true, useUnifiedTopology: true})
   .then(() => {
     return server.listen({port: 5000});
   })

@@ -9,23 +9,23 @@ function Listings(props) {
 
   const { loading, data } = useQuery(FETCH_INVENTORY_QUERY);
 
-  function itemSelect(e){
-    // localStorage.setItem('inventory', JSON.stringify(data));
-    console.log(e.item);
-  };
-
   return (
     <div>
       <Header>Category</Header>
       <Card.Group>
-          {loading ? (
+          {(loading | !data) ? (
             <div></div>
           ) : (
             data.getInventory.map((item, i) => {
               return (
                 <Card
                   as={Link}
-                  to={"/rentalpage/"+ i}
+                  to={{
+                    pathname: '/rentalpage',
+                    state: {
+                      item: item.item
+                    }
+                  }}
                   key={i}
                 >
                   <img src={img}/>

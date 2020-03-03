@@ -2,27 +2,27 @@ import React from 'react';
 import { useQuery } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
 
-function RentalPage() {
+function RentalPage(props) {
 
-  const { loading, data } = useQuery(FETCH_INVENTORY_QUERY);
+  console.log('name',props.location.state.item)
+  //const { loading, data } = useQuery(GET_ITEM, variables: {"item":props.location.state.item});
 
-  const itemIndex = window.location.pathname.split("/").pop();
-  var rentalItem = {};
-
-  if(data) {
-    rentalItem = data.getInventory[itemIndex];
-  }
+  //console.log(data);
 
   return (
     <div>
-      <h1>{rentalItem.item}</h1>
+      <h1>test</h1>
     </div>
   );
 }
 
-const FETCH_INVENTORY_QUERY = gql`
-  {
-    getInventory{
+const GET_ITEM = gql`
+  query getItem(
+    $item: String!
+  ){
+    getItem(
+      item: $name
+    ){
       item
       quantity
       level
@@ -30,6 +30,24 @@ const FETCH_INVENTORY_QUERY = gql`
       link
     }
   }
-`
+`;
+
+const CHECK_OUT_INVENTORY = gql`
+  mutation checkOut(
+    $item: String!
+    $username: String!
+    $numberOfItems: Int!
+  ) {
+    checkOut(
+      item: $item
+      username: $username
+      numberOfItems: $numberOfItems
+    ) {
+      username,
+      item,
+      dateOpened
+    }
+  }
+`;
 
 export default RentalPage;
