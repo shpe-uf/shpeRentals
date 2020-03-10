@@ -9,38 +9,46 @@ function Listings(props) {
 
   const { loading, data } = useQuery(FETCH_INVENTORY_QUERY);
 
-  function itemSelect(e){
-    // localStorage.setItem('inventory', JSON.stringify(data));
-    console.log(e.item);
-  };
+  const categorySelected = props.location.state.category;
 
   return (
     <div>
-      <Header>Category</Header>
-      <Card.Group>
-          {loading ? (
-            <div></div>
-          ) : (
-            data.getInventory.map((item, i) => {
-              return (
-                <Card
-                  as={Link}
-                  to={"/rentalpage/"+ i}
-                  key={i}
-                >
-                  <img src={img}/>
-                  <Card.Content>
-                    <Card.Header>{item.item}</Card.Header>
-                    <Card.Description>
-                      Tier {item.level} item
-                    </Card.Description>
-                  </Card.Content>
-                </Card>
-              );
-            })
-          )}
-          
+      <Header>{categorySelected}</Header>
+      {!data ? (
+        <Loader active/>
+      ) : 
+      <Card.Group centered>
+      {data.getInventory.filter((item) => {
+          if(categorySelected == 'All Inventory') {
+            return item == item;
+          } else {
+            return item.category == categorySelected;
+          }
+        }).map((item, i) => {
+          return (
+            <Card
+              as={Link}
+              to={{
+                pathname: '/rentalpage',
+                state: {
+                  item: item.item
+                }
+              }}
+              key={i}
+            >
+              <img src={img}/>
+              <Card.Content>
+                <Card.Header>{item.item}</Card.Header>
+                <Card.Description>
+                  Tier {item.level} item
+                </Card.Description>
+              </Card.Content>
+            </Card>
+          );
+        })
+      }
       </Card.Group>
+    }
     </div>
   );
 }
@@ -53,6 +61,7 @@ const FETCH_INVENTORY_QUERY = gql`
       level
       description
       link
+      category
     }
   }
 `

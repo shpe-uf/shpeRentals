@@ -6,7 +6,8 @@ const rentableSchema = new Schema({
   level: Number,
   description: String,
   link: String,
-  renters: [String]
+  renters: [String],
+  category: String
 }, {
   collection: 'Inventory'
 });

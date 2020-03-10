@@ -6,8 +6,6 @@ import categories from '../assets/categories.json'
 
 function Home() {
 
-
-
   return (
     <div>
       <Grid columns={2} divided>
