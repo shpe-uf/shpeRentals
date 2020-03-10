@@ -10,7 +10,12 @@ function CategoryList(props) {
           <Menu.Item
             name={category.name}
             as={Link}
-            to="/listings"
+            to={{
+              pathname: '/listings',
+              state: {
+                category: category.name
+              }
+            }}
             key={i}
           >
             <Header>{category.name}</Header>

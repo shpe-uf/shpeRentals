@@ -20,11 +20,14 @@ const typeDefs = gql`
     level: Int!
     description: String
     link: String
-    renters: [String]!
+    renters: [String]!,
+    category: String
   }
   type Receipt{
     username: String!,
     item: String!,
+    email: String!,
+    phone: String,
     dateOpened: String!,
     dateClosed: Date,
     open: Boolean!
@@ -43,11 +46,14 @@ const typeDefs = gql`
   input TransactionData {
     item: String!,
     username: String!,
-    numberOfItems: Int!
+    numberOfItems: Int!,
+    email: String!,
+    phone: String
   }
   type Query{
     getInventory: [Rentable]
     getItem(item: String): Rentable
+    getUser(username: String): User
   }
   type Mutation{
     checkOut(data: TransactionData): [Receipt],
@@ -75,6 +81,15 @@ const resolvers = {
       } catch(err) {
         throw new Error(err);
       }
+    },
+
+    async getUser(_,{username}) {
+      try{
+        const user = await User.findOne({'username': username})
+        return user;
+      } catch(err) {
+        throw new Error(err);
+      }
     }
   },
 
@@ -86,9 +101,9 @@ const resolvers = {
 
     async checkOut(_, data) {
       try{
-
+        console.log('here')
         //fixes bug where Object Null is received
-        const {item, username, numberOfItems} = JSON.parse(JSON.stringify(data)).data;
+        const {item, username, numberOfItems, email, phone } = JSON.parse(JSON.stringify(data)).data;
 
         const rentable = await Rentable.findOne({'item':item});
         const user = await User.findOne({'username': username});
@@ -124,6 +139,8 @@ const resolvers = {
         for(var i = 1; i <= numberOfItems; i++) {
           const receipt = new Receipt({
             username,
+            email,
+            phone,
             item,
             dateOpened,
             open: true
