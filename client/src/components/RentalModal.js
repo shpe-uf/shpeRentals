@@ -32,16 +32,14 @@ function RentalModal(props) {
     }
   })
 
-  async function rent() {
-    console.log(props.itemData.item);
-    console.log(username);
-    console.log(parseInt(props.numberOfItems));
-    console.log(email);
-    console.log(phone);
-    rentItem();
-  }
-
   function doneRenting() {
+    setPhase(1);
+    setUsername('');
+    setEmail('');
+    setPhone('');
+    setItemRented(false);
+    setUnderstand1(false);
+    setUnderstand2(false);
     props.doneRenting();
   }
 
@@ -175,7 +173,7 @@ function RentalModal(props) {
                   <Grid.Column>
                     <Button
                       onClick={() => {
-                        rent();
+                        rentItem();
                         setPhase(4);
                       }}
                     >
@@ -191,7 +189,7 @@ function RentalModal(props) {
             <Grid columns={1} textAlign='center'>
               <Grid.Row>
                 <Header>
-                  Complete :)
+                  Complete!
                 </Header>
               </Grid.Row>
               <Grid.Row>

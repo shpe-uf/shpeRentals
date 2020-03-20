@@ -9,7 +9,7 @@ function Listings(props) {
 
   const { loading, data } = useQuery(FETCH_INVENTORY_QUERY);
 
-  const categorySelected = props.location.state.category;
+  const categorySelected = props.location.state ? props.location.state.category : 'All Inventory';
 
   return (
     <div>
@@ -17,7 +17,7 @@ function Listings(props) {
       {!data ? (
         <Loader active/>
       ) : 
-      <Card.Group centered>
+      <Card.Group itemsPerRow={window.innerWidth >= 650 ? '4':'2'}>
       {data.getInventory.filter((item) => {
           if(categorySelected == 'All Inventory') {
             return item == item;
@@ -36,7 +36,7 @@ function Listings(props) {
               }}
               key={i}
             >
-              <img src={img}/>
+              <Image size='medium' src={img}/>
               <Card.Content>
                 <Card.Header>{item.item}</Card.Header>
                 <Card.Description>
